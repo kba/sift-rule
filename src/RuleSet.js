@@ -30,16 +30,10 @@ module.exports = class RuleSet {
     every(obj) { return this._rules.every(rule => rule.match(obj)) }
     some(obj) { return this._rules.find(rule => rule.match(obj)) !== undefined }
 
-    filter(obj) {
-        return this._rules
-            .filter(rule => rule.match(obj))
-            .map(rule => rule.tail)
-    }
+    filter(obj) { return this._rules.filter(rule => rule.match(obj)) }
+    filterApply(obj) { return this.filter(obj).map(rule => rule.tail) }
 
-    first(obj) {
-        const rule = this._rules
-            .find(rule => rule.match(obj))
-        if (rule) return rule.tail
-    }
+    first(obj) { return this._rules.find(rule => rule.match(obj)) }
+    firstApply(obj) { const rule = this.first(obj); if (rule) return rule.tail }
 
 }

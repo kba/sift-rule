@@ -4,7 +4,7 @@
   "description": "Define rules using MongoDB/sift queries",
   "main": "src/index.js",
   "scripts": {
-    "test": "tap test.js"
+    "test": "tap -Rspec test.js"
   },
   "repository": {
     "type": "git",
@@ -17,9 +17,13 @@
   },
   "homepage": "https://github.com/kba/sift-rule#readme",
   "dependencies": {
-    "sift": "^3.2.6"
+    "hjson": "^2.4.1",
+    "hjson-dsf-regex": "0.0.1",
+    "sift": "^3.2.6",
+    "strsplit": "^1.0.0"
   },
   "devDependencies": {
-    "tap": "^9.0.3"
+    "tap": "^9.0.3",
+    "tap-only": "0.0.5"
   }
 }
