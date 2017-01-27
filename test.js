@@ -7,6 +7,26 @@ const shouldNotMatch = {filename: 'foo.css'}
 
 
 tap('Rule', (t) => {
+    t.test('head as string', (t) => {
+        const rule1Copy = new Rule('{filename: {$regex: "js$"}}', 'JS')
+        t.deepEqual(rule1Copy, rule1, 'head as string works')
+        t.end()
+    })
+    t.test('dsf/datetime', (t) => {
+        const rule = new Rule('2014-01-01', 42)
+        t.equals(rule.head.toISOString(), new Date('2014-01-01').toISOString(), 'date parsed correctly')
+        t.end()
+    })
+    t.test('dsf/hex', (t) => {
+        const rule = new Rule('0xDECAF', 42)
+        t.equals(rule.head, 0xDECAF, 'hex parsed correctly')
+        t.end()
+    })
+    t.test('dsf/regex', (t) => {
+        const rule = new Rule('/a{1}/', 42)
+        t.deepEquals(rule.head, /a{1}/, 'regex parsed correctly')
+        t.end()
+    })
     t.test('toString / fromString', (t) => {
         const rule1Str = '{"filename":{"$regex":"js$"}} ==> "JS"'
         const variants = [
