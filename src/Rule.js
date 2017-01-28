@@ -3,7 +3,8 @@ const hjson = require('hjson')
 const strsplit = require('strsplit')
 const hjsonDsfRegex = require('hjson-dsf-regex')
 
-const _FILTER = Symbol('filter')
+const RULE_SEP = '-->'
+const RULE_SEP_REGEX = new RegExp("\\s*" + RULE_SEP + "\\s*")
 
 const dsfs = [
     hjsonDsfRegex(),
@@ -11,22 +12,23 @@ const dsfs = [
     hjson.dsf.date(),
     hjson.dsf.math(),
 ]
-const _HJSON_PARSE = (val) => hjson.parse(val, {
+const _hjsonParse = (val) => hjson.parse(val, {
     dsf: dsfs
 })
-const _HJSON_STRINGIFY = (val) => hjson.stringify(val, {
+const hjsonStringify = (val) => hjson.stringify(val, {
     dsf: dsfs,
     space: 0,
     bracesSameLine: true,
     quotes: 'strings'
 })
 
+const _FILTER = Symbol('filter')
 module.exports = class Rule {
 
     constructor(head, tail) {
         this[_FILTER] = sift(head)
         this.head = (typeof head === 'string')
-            ? _HJSON_PARSE(head)
+            ? _hjsonParse(head)
             : head
         this.tail = tail
     }
@@ -35,13 +37,14 @@ module.exports = class Rule {
 
     toString() {
         return [this.head, this.tail]
-            .map((v) => _HJSON_STRINGIFY(v))
-            .join(' ==> ').replace(/\n/g, '')
+            .map((v) => hjsonStringify(v))
+            .join(` ${RULE_SEP} `)
+            .replace(/\n/g, '')
     }
 
     static fromString(str) {
-        const [head, tail] = strsplit(str, /\s*==>\s*/, 2)
-            .map((v) => _HJSON_PARSE(v))
+        const [head, tail] = strsplit(str, RULE_SEP_REGEX, 2)
+            .map((v) => _hjsonParse(v))
         return new Rule(head, tail)
     }
 

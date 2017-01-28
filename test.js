@@ -28,12 +28,12 @@ tap('Rule', (t) => {
         t.end()
     })
     t.test('toString / fromString', (t) => {
-        const rule1Str = '{"filename":{"$regex":"js$"}} ==> "JS"'
+        const rule1Str = '{"filename":{"$regex":"js$"}} --> "JS"'
         const variants = [
-            '{filename: {$regex: "js$"}} ==> "JS"',
-            'filename: {$regex:"js$"} ==> JS',
-            'filename:{$regex:"js$"} ==> JS',
-            `{"filename":{"$regex":"js$"}} ==> JS`,
+            '{filename: {$regex: "js$"}} --> "JS"',
+            'filename: {$regex:"js$"} --> JS',
+            'filename:{$regex:"js$"} --> JS',
+            `{"filename":{"$regex":"js$"}} --> JS`,
         ]
         t.equals(rule1.tail, 'JS', 'rule tail')
         t.equals(rule1.toString(), variants[0], `toString: '${variants[0]}'`)
@@ -71,17 +71,17 @@ tap('Ruleset', (t) => {
         t.deepEqual(ruleSet.filterApply(shouldMatch), ['foo.js', 'JS'], 'filter')
         t.deepEqual(ruleSet.first(shouldMatch), rule2, 'first')
         t.deepEqual(ruleSet.firstApply(shouldMatch), 'foo.js', 'first')
-        t.deepEqual(ruleSet.some(shouldMatch), true, 'some ==> true')
-        t.deepEqual(ruleSet.every(shouldMatch), false, 'every ==> false')
+        t.deepEqual(ruleSet.some(shouldMatch), true, 'some --> true')
+        t.deepEqual(ruleSet.every(shouldMatch), false, 'every --> false')
         t.end()
     })
     t.test('delete', (t) => {
         ruleSet.delete(rule1)
-        t.equals(ruleSet.size, 2, 'removed 1 rule ==> 2')
+        t.equals(ruleSet.size, 2, 'removed 1 rule --> 2')
         ruleSet.delete(shouldMatch, 'foo.js')
-        t.equals(ruleSet.size, 1, 'removed 1 rule ==> 1')
-        t.deepEqual(ruleSet.some(shouldMatch), false, 'some ==> false')
-        t.deepEqual(ruleSet.every(shouldNotMatch), true, 'some ==> true')
+        t.equals(ruleSet.size, 1, 'removed 1 rule --> 1')
+        t.deepEqual(ruleSet.some(shouldMatch), false, 'some --> false')
+        t.deepEqual(ruleSet.every(shouldNotMatch), true, 'some --> true')
         t.end()
     })
     t.end()
