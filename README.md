@@ -1,6 +1,13 @@
 # sift-rule
 Define rules using MongoDB/sift queries
 
+<!-- BEGIN-MARKDOWN-TOC -->
+* [Example](#example)
+* [API](#api)
+	* [Rule](#rule)
+
+<!-- END-MARKDOWN-TOC -->
+
 ## Example
 
 ```js
@@ -14,3 +21,9 @@ colorRules.filterApply({filename: 'foo.js'})
 colorRules.filterApply({filename: 'foo.css'})
 // => ['green']
 ```
+
+## API
+
+### Rule
+
+### RuleSet

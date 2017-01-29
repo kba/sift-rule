@@ -7,9 +7,24 @@ const shouldNotMatch = {filename: 'foo.css'}
 
 
 tap('Rule', (t) => {
-    t.test('head as string', (t) => {
+    t.test('new(String, String)', (t) => {
         const rule1Copy = new Rule('{filename: {$regex: "js$"}}', 'JS')
-        t.deepEqual(rule1Copy, rule1, 'head as string works')
+        t.deepEqual(rule1Copy, rule1, 'new(String, String)')
+        t.end()
+    })
+    t.test('new([String, String])', (t) => {
+        const rule1Copy = new Rule(['{filename: {$regex: "js$"}}', 'JS'])
+        t.deepEqual(rule1Copy, rule1, 'new ([String, String])')
+        t.end()
+    })
+    t.test('new(Object, String)', (t) => {
+        const rule1Copy = new Rule({filename: {$regex: "js$"}}, 'JS')
+        t.deepEqual(rule1Copy, rule1, 'new ([Object, String])')
+        t.end()
+    })
+    t.test('new([Object, String])', (t) => {
+        const rule1Copy = new Rule([{filename: {$regex: "js$"}}, 'JS'])
+        t.deepEqual(rule1Copy, rule1, 'new ([Object, String])')
         t.end()
     })
     t.test('dsf/datetime', (t) => {
@@ -38,7 +53,7 @@ tap('Rule', (t) => {
         t.equals(rule1.tail, 'JS', 'rule tail')
         t.equals(rule1.toString(), variants[0], `toString: '${variants[0]}'`)
         for (let i = 1; i < variants.length; i++) {
-            t.deepEquals(Rule.fromString(variants[i]), rule1, `fromString: '${variants[i]}'`)
+            t.deepEquals(new Rule(variants[i]), rule1, `fromString: '${variants[i]}'`)
         }
         t.end()
     })
@@ -47,6 +62,7 @@ tap('Rule', (t) => {
         t.equals(rule1.match(shouldNotMatch), false, `rule1 should not match`)
         t.equals(new Rule({}, 'yay').match(42), true, '{} should match 42')
         t.equals(new Rule({}, 'yay').apply(42), 'yay', '{} applied to 42 should return yay')
+        t.equals(new Rule({$older:'1 day'}, 42).apply(new Date('2000-01-01')), 42, '$older query')
         t.end()
     })
     t.end()
@@ -73,6 +89,11 @@ tap('Ruleset', (t) => {
         t.deepEqual(ruleSet.firstApply(shouldMatch), 'foo.js', 'first')
         t.deepEqual(ruleSet.some(shouldMatch), true, 'some --> true')
         t.deepEqual(ruleSet.every(shouldMatch), false, 'every --> false')
+        t.end()
+    })
+    t.test('toString / toJSON / new(String)', (t) => {
+        t.deepEquals(ruleSet.toJSON(), [rule2, rule3, rule1].map(r=>r.toJSON()))
+        t.deepEquals(ruleSet.toString(), [rule2, rule3, rule1].map(r=>r.toString()).join(';\n'))
         t.end()
     })
     t.test('delete', (t) => {
