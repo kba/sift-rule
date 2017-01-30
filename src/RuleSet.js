@@ -17,7 +17,7 @@ module.exports = class RuleSet {
 
     add(head, tail) {
         const rule = _isaRule(head) ? head : new Rule(head, tail)
-        console.log("Adding rule", rule)
+        // console.log("Adding rule", rule)
         this.rules.push(rule)
         return rule
     }

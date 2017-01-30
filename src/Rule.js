@@ -32,6 +32,8 @@ module.exports = class Rule {
             [head, tail] = head
         }
         if (typeof head === 'string') {
+            // XXX this is to make regexes easier, e.g. \\. instead of \\\\.
+            head = head.replace('\\', '\\\\')
             if (head.indexOf(HEAD_TAIL_SEP) > -1) {
                 [head, tail] = strsplit(head, HEAD_TAIL_SEP_REGEX, 2).map(_hjsonParse)
             } else {
