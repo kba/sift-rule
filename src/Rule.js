@@ -42,6 +42,7 @@ module.exports = class Rule {
         }
         this[_FILTER] = sift(head)
         this.head = head
+        if (tail === undefined) tail = true
         this.tail = tail
     }
 
