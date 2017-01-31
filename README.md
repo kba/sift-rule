@@ -1,6 +1,8 @@
 # sift-rule
 Define rules using MongoDB/sift queries
 
+[![Build Status](https://travis-ci.org/kba/sift-rule.svg?branch=master)](https://travis-ci.org/kba/sift-rule)
+
 <!-- BEGIN-MARKDOWN-TOC -->
 * [Terminology](#terminology)
 * [Example](#example)
