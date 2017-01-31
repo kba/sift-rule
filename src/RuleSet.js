@@ -44,6 +44,10 @@ class RuleSet {
         if (idx > -1) this.rules.splice(idx, 1)
     }
 
+    clear() {
+        this.rules = []
+    }
+
     deleteAll(rules=[]) {
         if (rules.constructor === RuleSet) rules = rules.rules
         else if (typeof rules === 'string') rules = rules.split(RULE_SEP)

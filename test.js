@@ -134,6 +134,8 @@ tap('Ruleset', (t) => {
         // console.log(rs1.toString())
         rs1.deleteAll(rs2)
         t.equals(rs1.size, 1, 'after deleteAll, size is 1')
+        rs1.clear()
+        t.equals(rs1.size, 0, 'after clear, size is 0')
         t.end()
     })
     t.end()
