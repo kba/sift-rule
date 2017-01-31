@@ -65,6 +65,22 @@ tap('Rule', (t) => {
         t.equals(new Rule({$older:'1 day'}, 42).apply(new Date('2000-01-01')), 42, '$older query')
         t.end()
     })
+
+    t.test('named rules', t => {
+        t.test('name in toString/fromString', (t) => {
+            const namedRule1 = new Rule('42 --> false #== matchall rule')
+            t.equals(namedRule1.name, 'matchall rule', 'name was set')
+            t.equals(namedRule1.head, 42, 'head parsed')
+            const namedRule2 = new Rule('42 #== matchall rule', 23)
+            t.equals(namedRule2.name, 'matchall rule', 'name was set')
+            t.equals(namedRule2.head, 42, 'head parsed')
+            t.equals(namedRule2.tail, 23, 'tail parsed')
+            t.equals(namedRule2.toString(), '42 --> 23 #== matchall rule', 'toString with name')
+            t.end()
+        })
+        t.end()
+    })
+
     t.end()
 })
 

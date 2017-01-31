@@ -5,6 +5,7 @@ const hjson = require('hjson')
 const strsplit = require('strsplit')
 const hjsonDsfRegex = require('hjson-dsf-regex')
 
+const RULE_NAME_SEP = '#=='
 const HEAD_TAIL_SEP = '-->'
 const HEAD_TAIL_SEP_REGEX = new RegExp("\\s*" + HEAD_TAIL_SEP + "\\s*")
 
@@ -27,11 +28,15 @@ const hjsonStringify = (val) => hjson.stringify(val, {
 const _FILTER = Symbol('filter')
 module.exports = class Rule {
 
-    constructor(head, tail) {
+    constructor(head, tail, name='') {
         if (Array.isArray(head)) {
-            [head, tail] = head
+            [head, tail, name] = head
         }
         if (typeof head === 'string') {
+            var headName
+            [head, headName] = head.split(RULE_NAME_SEP)
+            if (headName && name === '')
+                name = headName.trim()
             // XXX this is to make regexes easier, e.g. \\. instead of \\\\.
             head = head.replace('\\', '\\\\')
             if (head.indexOf(HEAD_TAIL_SEP) > -1) {
@@ -42,18 +47,20 @@ module.exports = class Rule {
         }
         this[_FILTER] = sift(head)
         this.head = head
-        if (tail === undefined) tail = true
-        this.tail = tail
+        this.tail = (tail !== undefined) ? tail : true
+        this.name = name ? name : ''
     }
 
     match(obj) { return this[_FILTER](obj) }
     apply(obj) { if (this.match(obj)) return this.tail }
 
     toString() {
-        return this.toJSON()
+        var ret = this.toJSON()
             .map((v) => hjsonStringify(v))
             .join(` ${HEAD_TAIL_SEP} `)
             .replace(/\n/g, '')
+        if (this.name !== '') ret += ` ${RULE_NAME_SEP} ${this.name}`
+        return ret
     }
 
     toJSON() {

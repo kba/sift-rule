@@ -19,8 +19,8 @@ class RuleSet {
 
     get size() { return this.rules.length }
 
-    add(head, tail) {
-        const rule = _isaRule(head) ? head : new Rule(head, tail)
+    add(head, tail, name) {
+        const rule = _isaRule(head) ? head : new Rule(head, tail, name)
         // console.log("Adding rule", rule)
         this.rules.push(rule)
         return rule
@@ -44,14 +44,14 @@ class RuleSet {
         if (idx > -1) this.rules.splice(idx, 1)
     }
 
-    clear() {
-        this.rules = []
-    }
-
     deleteAll(rules=[]) {
         if (rules.constructor === RuleSet) rules = rules.rules
         else if (typeof rules === 'string') rules = rules.split(RULE_SEP)
         rules.forEach(rule => this.delete(rule))
+    }
+
+    clear() {
+        this.rules = []
     }
 
     every(obj) { return this.rules.every(rule => rule.match(obj)) }
