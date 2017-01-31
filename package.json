@@ -20,6 +20,7 @@
     "hjson": "^2.4.1",
     "hjson-dsf-regex": "0.0.1",
     "sift": "^3.2.6",
+    "sift-date": "0.0.1",
     "strsplit": "^1.0.0"
   },
   "devDependencies": {
