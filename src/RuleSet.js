@@ -8,6 +8,11 @@ function _isaRuleSet(obj) { return obj.constructor === RuleSet }
 class RuleSet {
 
     constructor(rules=[]) {
+        this.name = 'untitled'
+        if (typeof rules === 'object' && !(Array.isArray(rules))) {
+            if ('name' in rules) this.name = rules.name
+            rules = rules.rules || []
+        }
         this.rules = []
         this.addAll(rules)
     }

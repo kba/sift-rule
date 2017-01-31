@@ -71,6 +71,27 @@ tap('Rule', (t) => {
 tap('Ruleset', (t) => {
     const ruleSet = new RuleSet()
     let rule2, rule3
+    t.test('RuleSets can be constructed with different arguments', t => {
+        t.test('w/o arguments', t => {
+            const ruleSet = new RuleSet()
+            t.equals(ruleSet.name, 'untitled', 'default name')
+            t.equals(ruleSet.rules.length, 0, 'empty rules')
+            t.end()
+        })
+        t.test('array argument', t => {
+            const ruleSet = new RuleSet(['true --> false'])
+            t.equals(ruleSet.name, 'untitled', 'default name')
+            t.equals(ruleSet.rules.length, 1, 'rule stored')
+            t.end()
+        })
+        t.test('object argument', t => {
+            const ruleSet = new RuleSet({name: 'foo rules', rules: ['true --> false']})
+            t.equals(ruleSet.name, 'foo rules', 'name picked up')
+            t.equals(ruleSet.rules.length, 1, 'rule stored')
+            t.end()
+        })
+        t.end()
+    })
     t.test('Rules can be added', (t) => {
         rule2 = ruleSet.add(shouldMatch, 'foo.js')
         t.equals(ruleSet.rules[0].tail, 'foo.js', 'as head/tail tuple')
