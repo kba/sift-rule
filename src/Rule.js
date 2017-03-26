@@ -60,9 +60,15 @@ module.exports = class Rule {
                 const headDereferenced = JSON.parse(JSON.stringify(this.head))
                 traverse(headDereferenced).forEach(function() {
                     if (this && this.key === '$ref') {
-                        this.parent.update(jsonPointer.get(obj, this.node), true)
+                        try {
+                            var val = jsonPointer.get(obj, this.node)
+                            this.parent.update(val, true)
+                        } catch (err) {
+                            this.parent.update(NaN, true)
+                        }
                     }
                 })
+                // console.log(headDereferenced)
                 return sift(headDereferenced)(obj)
             }
         }
