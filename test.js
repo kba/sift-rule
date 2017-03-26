@@ -5,6 +5,14 @@ const rule1 = new Rule({filename: {$regex: 'js$'}}, 'JS')
 const shouldMatch = {filename: 'foo.js'}
 const shouldNotMatch = {filename: 'foo.css'}
 
+tap('Rules with references', t => {
+    const refRule1 = new Rule([{bar:{$ref:'/foo'}}, 'yes', '$ref rule'])
+    t.equals(refRule1.match({foo: 42, bar: 42}), true, 'reference resolved')
+    var refRule2 = new Rule({"post.user": {$ref: '/user/id'}}, true)
+    t.equals(refRule2.match({post: {title: 'title', user: 'john'}, user: {id: 'john'}}), true)
+    t.equals(refRule2.match({post: {title: 'title', user: 'john'}, user: {id: 'mike'}}), false)
+    t.end()
+})
 
 tap('Rule', (t) => {
     t.test('new(String, String)', (t) => {

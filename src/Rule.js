@@ -4,6 +4,8 @@ sift.use(siftDate)
 const hjson = require('hjson')
 const strsplit = require('strsplit')
 const hjsonDsfRegex = require('hjson-dsf-regex')
+const jsonPointer = require('json-pointer')
+const traverse = require('traverse')
 
 const RULE_NAME_SEP = '#=='
 const HEAD_TAIL_SEP = '-->'
@@ -46,7 +48,24 @@ module.exports = class Rule {
                 head = _hjsonParse(head)
             }
         }
-        this[_FILTER] = sift(head)
+        var containsReferences = false
+        traverse(head).forEach(function(node) {
+            if (this && this.key === '$ref') containsReferences = true
+        })
+        this.containsReferences = containsReferences
+        if (!this.containsReferences) {
+            this[_FILTER] = sift(head)
+        } else {
+            this[_FILTER] = (obj) => {
+                const headDereferenced = JSON.parse(JSON.stringify(this.head))
+                traverse(headDereferenced).forEach(function() {
+                    if (this && this.key === '$ref') {
+                        this.parent.update(jsonPointer.get(obj, this.node), true)
+                    }
+                })
+                return sift(headDereferenced)(obj)
+            }
+        }
         this.head = head
         this.tail = (tail !== undefined) ? tail : true
         this.name = name ? name : ''

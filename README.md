@@ -76,6 +76,24 @@ colorRules.filterApply({filename: 'foo.css'})
 }
 ```
 
+## Extensions
+
+### References
+
+You can add clauses to a rule head that reference data in the object to sift
+using an object with a single `$ref` key and a JSON Pointer as the value.
+
+For example, to define a rule that users may only edit their own posts:
+
+```js
+var rule = new Rule({"post.user": {$ref: '/user/id'}}, true)
+
+rule.apply({post: {title: 'title', user: 'john'}, user: {id: 'john'}})
+// => true
+rule.apply({post: {title: 'title', user: 'john'}, user: {id: 'mike'}}) // true
+// => false
+```
+
 ## API
 
 ### Rule

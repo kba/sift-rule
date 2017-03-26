@@ -19,9 +19,12 @@
   "dependencies": {
     "hjson": "^2.4.1",
     "hjson-dsf-regex": "0.0.1",
+    "json-pointer": "^0.6.0",
+    "json-ref-lite": "^1.0.73",
     "sift": "^3.2.6",
     "sift-date": "0.0.1",
-    "strsplit": "^1.0.0"
+    "strsplit": "^1.0.0",
+    "traverse": "^0.6.6"
   },
   "devDependencies": {
     "tap": "^9.0.3",
