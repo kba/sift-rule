@@ -48,6 +48,7 @@ module.exports = class Rule {
                 head = _hjsonParse(head)
             }
         }
+
         var containsReferences = false
         traverse(head).forEach(function(node) {
             if (this && this.key === '$ref') containsReferences = true
@@ -68,13 +69,21 @@ module.exports = class Rule {
                         }
                     }
                 })
-                // console.log(headDereferenced)
+                if (this.DEBUG) console.log(headDereferenced)
                 return sift(headDereferenced)(obj)
             }
         }
         this.head = head
         this.tail = (tail !== undefined) ? tail : true
         this.name = name ? name : ''
+    }
+
+    get DEBUG() {
+        try {
+            return process.env.SIFT_RULE_DEBUG === 'true'
+        } catch (err) { try {
+            return window.SIFT_RULE_DEBUG
+        } catch (err) { } }
     }
 
     match(obj) { return this[_FILTER](obj) }
