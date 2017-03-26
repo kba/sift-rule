@@ -8,22 +8,25 @@ Define rules using MongoDB/sift queries
 * [Example](#example)
 * [String notation](#string-notation)
 * [API](#api)
-	* [`Rule.new()`](#rulenew)
-	* [`Rule.match()`](#rulematch)
-	* [`Rule.apply()`](#ruleapply)
-	* [`RuleSet.size`](#rulesetsize)
-	* [`RuleSet.add()`](#rulesetadd)
-	* [`RuleSet.addAll()`](#rulesetaddall)
-	* [`RuleSet.delete()`](#rulesetdelete)
-	* [`RuleSet.deleteAll()`](#rulesetdeleteall)
-	* [`RuleSet.clear()`](#rulesetclear)
-	* [`RuleSet.every()`](#rulesetevery)
-	* [`RuleSet.some()`](#rulesetsome)
-	* [`RuleSet.filter()`](#rulesetfilter)
-	* [`RuleSet.filterApply()`](#rulesetfilterapply)
-	* [`RuleSet.first()`](#rulesetfirst)
-	* [`RuleSet.firstApply()`](#rulesetfirstapply)
-	* [`RuleSet.toString()`](#rulesettostring)
+	* [Rule](#rule)
+		* [`Rule.new()`](#rulenew)
+		* [`Rule.match()`](#rulematch)
+		* [`Rule.apply()`](#ruleapply)
+	* [RuleSet](#ruleset)
+		* [`RuleSet.new()`](#rulesetnew)
+		* [`RuleSet.size`](#rulesetsize)
+		* [`RuleSet.add()`](#rulesetadd)
+		* [`RuleSet.addAll()`](#rulesetaddall)
+		* [`RuleSet.delete()`](#rulesetdelete)
+		* [`RuleSet.deleteAll()`](#rulesetdeleteall)
+		* [`RuleSet.clear()`](#rulesetclear)
+		* [`RuleSet.every()`](#rulesetevery)
+		* [`RuleSet.some()`](#rulesetsome)
+		* [`RuleSet.filter()`](#rulesetfilter)
+		* [`RuleSet.filterApply()`](#rulesetfilterapply)
+		* [`RuleSet.first()`](#rulesetfirst)
+		* [`RuleSet.firstApply()`](#rulesetfirstapply)
+		* [`RuleSet.toString()`](#rulesettostring)
 
 <!-- END-MARKDOWN-TOC -->
 
@@ -75,7 +78,9 @@ colorRules.filterApply({filename: 'foo.css'})
 
 ## API
 
-### `Rule.new()`
+### Rule
+
+#### `Rule.new()`
 
 ```js
 new Rule(stringRule)
@@ -84,7 +89,7 @@ new Rule(head[, tail][, name])
 
 Constructor takes either a rule in [String notation](#string-notation) or `head`, `tail` (optional) and name (optional)
 
-### `Rule.match()`
+#### `Rule.match()`
 
 ```js
 rule.match(value)
@@ -92,7 +97,7 @@ rule.match(value)
 
 Return `true` if the `head` matches `val`, `false` otherwise.
 
-### `Rule.apply()`
+#### `Rule.apply()`
 
 ```js
 rule.match(value)
@@ -100,11 +105,22 @@ rule.match(value)
 
 Return the `tail` if the `head` matches `val`, `undefined` otherwise.
 
-### `RuleSet.size`
+### RuleSet
+
+#### `RuleSet.new()`
+
+```js
+new RuleSet{[rule1, rule2...]}
+new RuleSet({name: 'ruleset1', rules: [rule1, rule2...]})
+```
+
+Create a new Ruleset.
+
+#### `RuleSet.size`
 
 Return the number of rules in the RuleSet.
 
-### `RuleSet.add()`
+#### `RuleSet.add()`
 
 ```js
 ruleset.add(rule)
@@ -116,22 +132,22 @@ Adds a single rule to the RuleSet. If rule is not an instance of a `Rule`, passe
 
 Returns the rule.
 
-### `RuleSet.addAll()`
+#### `RuleSet.addAll()`
 
 ```js
 ruleset.addAll(otherRuleset)
 ruleset.addAll(arrayOfRules)
 ```
 
-### `RuleSet.delete()`
+#### `RuleSet.delete()`
 
-### `RuleSet.deleteAll()`
+#### `RuleSet.deleteAll()`
 
-### `RuleSet.clear()`
+#### `RuleSet.clear()`
 
 Delete all rules in this RuleSet.
 
-### `RuleSet.every()`
+#### `RuleSet.every()`
 
 ```js
 ruleset.every(value)
@@ -139,7 +155,7 @@ ruleset.every(value)
 
 Return `true` if the `head` of every rule matches `value`, `false` otherwise.
 
-### `RuleSet.some()`
+#### `RuleSet.some()`
 
 ```js
 ruleset.some(value)
@@ -147,7 +163,7 @@ ruleset.some(value)
 
 Return `true` if the `head` of any rule matches `value`, `false` if none match.
 
-### `RuleSet.filter()`
+#### `RuleSet.filter()`
 
 ```js
 ruleset.filter(value)
@@ -155,7 +171,7 @@ ruleset.filter(value)
 
 Return the rules whose `head` matches `value`.
 
-### `RuleSet.filterApply()`
+#### `RuleSet.filterApply()`
 
 ```js
 ruleset.filter(value)
@@ -163,7 +179,7 @@ ruleset.filter(value)
 
 Return the `tail` of any rule whose `head` matches `value`.
 
-### `RuleSet.first()`
+#### `RuleSet.first()`
 
 ```js
 ruleset.first(value)
@@ -171,7 +187,7 @@ ruleset.first(value)
 
 Return the first rule whose `head` matches `value`.
 
-### `RuleSet.firstApply()`
+#### `RuleSet.firstApply()`
 
 ```js
 ruleset.firstApply(value)
@@ -179,4 +195,4 @@ ruleset.firstApply(value)
 
 Return the `tail` of the first rule whose `head` matches `value`.
 
-### `RuleSet.toString()`
+#### `RuleSet.toString()`
