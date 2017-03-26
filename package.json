@@ -2,14 +2,11 @@
   "name": "sift-rule",
   "version": "0.1.1",
   "description": "Define rules using MongoDB/sift queries",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "tap -Rspec test.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kba/sift-rule.git"
-  },
+  "repository": "github:kba/sift-rule",
   "author": "kba",
   "license": "MIT",
   "bugs": {
@@ -20,7 +17,6 @@
     "hjson": "^2.4.1",
     "hjson-dsf-regex": "0.0.1",
     "json-pointer": "^0.6.0",
-    "json-ref-lite": "^1.0.73",
     "sift": "^3.2.6",
     "sift-date": "0.0.1",
     "strsplit": "^1.0.0",

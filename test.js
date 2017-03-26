@@ -1,5 +1,5 @@
 const tap = require('tap-only')
-const {Rule, RuleSet} = require('./src')
+const {Rule, RuleSet} = require('.')
 
 const rule1 = new Rule({filename: {$regex: 'js$'}}, 'JS')
 const shouldMatch = {filename: 'foo.js'}
