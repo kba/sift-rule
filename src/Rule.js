@@ -21,6 +21,7 @@ const _hjsonParse = (val) => hjson.parse(val, {
 const hjsonStringify = (val) => hjson.stringify(val, {
     dsf: dsfs,
     space: 0,
+    separator: true,
     bracesSameLine: true,
     quotes: 'strings'
 })
