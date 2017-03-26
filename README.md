@@ -1,5 +1,5 @@
 # sift-rule
-Define rules using MongoDB/sift queries
+Define rules using [sift](https://github.com/crcn/sift.js) (=~ MongoDB) queries
 
 [![Build Status](https://travis-ci.org/kba/sift-rule.svg?branch=master)](https://travis-ci.org/kba/sift-rule)
 
