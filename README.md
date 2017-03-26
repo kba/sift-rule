@@ -94,6 +94,9 @@ rule.apply({post: {title: 'title', user: 'john'}, user: {id: 'mike'}}) // true
 // => false
 ```
 
+**NOTE:** references to non-existing values are set to `NaN` (not-a-number)
+because `NaN !== NaN` so this clause will always fail.
+
 ## API
 
 ### Rule
