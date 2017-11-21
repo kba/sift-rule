@@ -1,4 +1,3 @@
-[
-    './Rule',
-    './RuleSet',
-].forEach(mod => module.exports[mod.substr(2)] = require(mod))
+const Rule = require('./Rule')
+const RuleSet = require('./RuleSet')
+module.exports = {Rule, RuleSet}
