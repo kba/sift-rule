@@ -15,7 +15,7 @@
   "homepage": "https://github.com/kba/sift-rule#readme",
   "dependencies": {
     "hjson": "^2.4.3",
-    "hjson-dsf-regex": "0.0.1",
+    "hjson-dsf-regex": "0.0.3",
     "json-pointer": "^0.6.0",
     "sift": "^3.3.12",
     "sift-date": "0.0.1",
