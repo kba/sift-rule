@@ -1,4 +1,4 @@
-[
-    './Rule',
-    './RuleSet',
-].forEach(mod => module.exports[mod.substr(2)] = require(mod))
+module.exports = {
+  Rule: require('./Rule.js'),
+  RuleSet: require('./RuleSet.js')
+}
