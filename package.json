@@ -1,6 +1,6 @@
 {
   "name": "sift-rule",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Define rules using MongoDB/sift queries",
   "main": "index.js",
   "scripts": {
