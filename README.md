@@ -7,6 +7,7 @@ Define rules using [sift](https://github.com/crcn/sift.js) (=~ MongoDB) queries
 * [Terminology](#terminology)
 * [Example](#example)
 * [String notation](#string-notation)
+* [Debugging](#debugging)
 * [Extensions](#extensions)
 	* [References](#references)
 * [API](#api)
@@ -79,6 +80,15 @@ colorRules.filterApply({filename: 'foo.css'})
   name: 'answer to everything',
 }
 ```
+
+## Debugging
+
+To get debug output:
+
+* Set `process.env.SIFT_RULE_DEBUG='true'` in Node.js
+* Set `window.SIFT_RULE_DEBUG='true'` in the browser
+
+NOTE: `'true'` must be the string `true` not the boolean value `true`.
 
 ## Extensions
 
