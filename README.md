@@ -7,6 +7,8 @@ Define rules using [sift](https://github.com/crcn/sift.js) (=~ MongoDB) queries
 * [Terminology](#terminology)
 * [Example](#example)
 * [String notation](#string-notation)
+* [Extensions](#extensions)
+	* [References](#references)
 * [API](#api)
 	* [Rule](#rule)
 		* [`Rule.new()`](#rulenew)
@@ -14,12 +16,14 @@ Define rules using [sift](https://github.com/crcn/sift.js) (=~ MongoDB) queries
 		* [`Rule.apply()`](#ruleapply)
 	* [RuleSet](#ruleset)
 		* [`RuleSet.new()`](#rulesetnew)
+		* [Managing rules](#managing-rules)
 		* [`RuleSet.size`](#rulesetsize)
 		* [`RuleSet.add()`](#rulesetadd)
 		* [`RuleSet.addAll()`](#rulesetaddall)
 		* [`RuleSet.delete()`](#rulesetdelete)
 		* [`RuleSet.deleteAll()`](#rulesetdeleteall)
 		* [`RuleSet.clear()`](#rulesetclear)
+		* [Processing rules](#processing-rules)
 		* [`RuleSet.every()`](#rulesetevery)
 		* [`RuleSet.some()`](#rulesetsome)
 		* [`RuleSet.filter()`](#rulesetfilter)
@@ -101,6 +105,7 @@ because `NaN !== NaN` so this clause will always fail.
 
 ### Rule
 
+<!-- BEGIN-RENDER ./Rule.js -->
 #### `Rule.new()`
 
 ```js
@@ -126,8 +131,11 @@ rule.match(value)
 
 Return the `tail` if the `head` matches `val`, `undefined` otherwise.
 
+<!-- END-RENDER -->
+
 ### RuleSet
 
+<!-- BEGIN-RENDER ./RuleSet.js -->
 #### `RuleSet.new()`
 
 ```js
@@ -136,11 +144,11 @@ new RuleSet({name: 'ruleset1', rules: [rule1, rule2...]})
 ```
 
 Create a new Ruleset.
+#### Managing rules
 
 #### `RuleSet.size`
 
 Return the number of rules in the RuleSet.
-
 #### `RuleSet.add()`
 
 ```js
@@ -168,6 +176,7 @@ ruleset.addAll(arrayOfRules)
 
 Delete all rules in this RuleSet.
 
+#### Processing rules
 #### `RuleSet.every()`
 
 ```js
@@ -175,7 +184,6 @@ ruleset.every(value)
 ```
 
 Return `true` if the `head` of every rule matches `value`, `false` otherwise.
-
 #### `RuleSet.some()`
 
 ```js
@@ -183,7 +191,6 @@ ruleset.some(value)
 ```
 
 Return `true` if the `head` of any rule matches `value`, `false` if none match.
-
 #### `RuleSet.filter()`
 
 ```js
@@ -191,7 +198,6 @@ ruleset.filter(value)
 ```
 
 Return the rules whose `head` matches `value`.
-
 #### `RuleSet.filterApply()`
 
 ```js
@@ -199,7 +205,6 @@ ruleset.filter(value)
 ```
 
 Return the `tail` of any rule whose `head` matches `value`.
-
 #### `RuleSet.first()`
 
 ```js
@@ -207,7 +212,6 @@ ruleset.first(value)
 ```
 
 Return the first rule whose `head` matches `value`.
-
 #### `RuleSet.firstApply()`
 
 ```js
@@ -215,5 +219,13 @@ ruleset.firstApply(value)
 ```
 
 Return the `tail` of the first rule whose `head` matches `value`.
-
 #### `RuleSet.toString()`
+
+<!-- END-RENDER -->
+
+
+
+
+
+
+

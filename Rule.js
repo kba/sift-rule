@@ -31,6 +31,17 @@ const hjsonStringify = (val) => hjson.stringify(val, {
 const _FILTER = Symbol('filter')
 module.exports = class Rule {
 
+  /*
+   * #### `Rule.new()`
+   * 
+   * ```js
+   * new Rule(stringRule)
+   * new Rule(head[, tail][, name])
+   * ```
+   * 
+   * Constructor takes either a rule in [String notation](#string-notation) or `head`, `tail` (optional) and name (optional)
+   * 
+   */
     constructor(head, tail, name='') {
         if (Array.isArray(head)) {
             [head, tail, name] = head
@@ -86,11 +97,33 @@ module.exports = class Rule {
         } catch (err) { } }
     }
 
+
+    /*
+     * #### `Rule.match()`
+     * 
+     * ```js
+     * rule.match(value)
+     * ```
+     * 
+     * Return `true` if the `head` matches `val`, `false` otherwise.
+     * 
+     */
     match(obj) { return this[_FILTER](obj) }
+
+    /*
+     * #### `Rule.apply()`
+     * 
+     * ```js
+     * rule.match(value)
+     * ```
+     * 
+     * Return the `tail` if the `head` matches `val`, `undefined` otherwise.
+     * 
+     */
     apply(obj) { if (this.match(obj)) return this.tail }
 
     toString() {
-        var ret = this.toJSON()
+        let ret = this.toJSON()
             .map((v) => hjsonStringify(v))
             .join(` ${HEAD_TAIL_SEP} `)
             .replace(/\n/g, '')
