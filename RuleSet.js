@@ -4,6 +4,7 @@ const RULE_SEP = ';\n'
 
 function _isaRule(obj) { return obj.constructor === Rule }
 function _isaRuleSet(obj) { return obj.constructor === RuleSet }
+function ifArray(x) { return Array.isArray(x) && x }
 
 class RuleSet {
 
@@ -17,14 +18,11 @@ class RuleSet {
      * 
      * Create a new Ruleset.
      */
-    constructor(rules=[]) {
-        this.name = 'untitled'
-        if (typeof rules === 'object' && !(Array.isArray(rules))) {
-            if ('name' in rules) this.name = rules.name
-            rules = rules.rules || []
-        }
+    constructor(origRules) {
+        const rules = origRules || []
+        this.name = rules.name || 'untitled'
         this.rules = []
-        this.addAll(rules)
+        this.addAll(ifArray(rules.rules) || rules)
     }
 
     /*
