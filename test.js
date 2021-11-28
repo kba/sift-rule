@@ -114,6 +114,23 @@ tap('Ruleset', (t) => {
             t.equals(ruleSet.rules.length, 1, 'rule stored')
             t.end()
         })
+        t.test('various falsey arguments', t => {
+            const values = [
+                undefined,
+                null,
+                false,
+                0,
+            ]
+            values.forEach(val => {
+                t.test(String(val), t => {
+                    const ruleSet = new RuleSet(val)
+                    t.equals(ruleSet.name, 'untitled', 'default name')
+                    t.equals(ruleSet.rules.length, 0, 'empty rules')
+                    t.end()
+                })
+            })
+            t.end()
+        })
         t.end()
     })
     t.test('Rules can be added', (t) => {
