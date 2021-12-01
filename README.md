@@ -64,7 +64,7 @@ colorRules.filterApply({filename: 'foo.css'})
 ## String notation
 
 * `head` and `tail` are separated by `-->`
-* Rule and rule name are separated by `#--`
+* Rule and rule name are separated by `#==`
 * `head` and `tail` are parsed as [HJSON](https://hjson.org/), JSON with some extensions:
   * Object keys can be unquoted
   * Escaped backslashes are doubled, to make it easier to write regexes
